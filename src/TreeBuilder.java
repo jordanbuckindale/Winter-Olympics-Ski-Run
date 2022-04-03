@@ -33,9 +33,35 @@ public class TreeBuilder<T> {
 		// enqueue the root node on parentQueue.
 		parentQueue.enqueue(tree.getRoot());
 		
-		
+		while (!dataQueue.isEmpty()) {
+			
+			// declare left and right nodes.
+			BinaryTreeNode<T> a = new BinaryTreeNode<>(dataQueue.dequeue());
+			BinaryTreeNode<T> b = new BinaryTreeNode<>(dataQueue.dequeue());
+			
+			// decare parent node.
+			BinaryTreeNode<T> parent = parentQueue.dequeue();
+			
+			// check to see if left node is null.
+			if (a != null) {
+				// set left node as a value.
+				parent.setLeft(a);
+				// add parent node back to queue.
+				parentQueue.enqueue(parent);
+			}
+			
+			// check to see if right node is null.
+			if (b != null) {
+				// set right node as b value.
+				parent.setRight(b);
+				// add parent node back to queue.
+				parentQueue.enqueue(parent);
+			}
+			
+		}
 		 
-		return null;
+		// return built tree.
+		return tree;
 		
 	}
 	
