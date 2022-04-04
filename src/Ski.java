@@ -32,7 +32,7 @@ public class Ski<T> {
 			if (data[i].contains("jump")) {
 				
 				// create jump object. 
-				JumpSegment jumpObj = new JumpSegment(String.valueOf(i),data[i]);
+				JumpSegment jumpObj = new JumpSegment(String.valueOf(i), data[i]);
 				
 				// assign object to position in array.
 				segments[i] = jumpObj;
@@ -42,7 +42,7 @@ public class Ski<T> {
 			if (data[i].contains("slalom")) {
 				
 				// create slalom object. 
-				SlalomSegment SlalomObj = new SlalomSegment(String.valueOf(i),data[i]);
+				SlalomSegment SlalomObj = new SlalomSegment(String.valueOf(i), data[i]);
 				
 				// assign object to position in array.
 				segments[i] = SlalomObj;
@@ -51,27 +51,24 @@ public class Ski<T> {
 			else {
 				
 				// create plain ski object. 
-				SkiSegment skiObj = new SkiSegment(String.valueOf(i),data[i]);
+				SkiSegment skiObj = new SkiSegment(String.valueOf(i), data[i]);
 				
+				// assign object to position in array.
 				segments[i] = skiObj;
 			}
 		}
 		
-		// create tree to start constructing slope.
-		TreeBuilder<T> tree;
+		// create tree object to start constructing slope.
+		TreeBuilder<SkiSegment> tree;
 		
 		// initialize tree.
-		tree = new TreeBuilder<T>();
+		tree = new TreeBuilder<>();
 				
 		// construct the tree with data in the array 'segements'.
-		tree.buildTree((T[]) data);
+		tree.buildTree(segments);
 		
 		// store root in instance variable root.
-		this.root.setData(tree.getRoot()); 
-		
-	
-		
-		
+		this.root.getData();
 	}
 	
 	/**
@@ -84,8 +81,18 @@ public class Ski<T> {
 		return this.root;
 	}
 	
-	// method
+	/**
+	 * Public method that stores in a parameter node the sequence of the slope run so the whole path is recorded.
+	 * @param node 
+	 * @param sequence 
+	 */
 	public void skiNextSegment (BinaryTreeNode<SkiSegment> node, ArrayUnorderedList<SkiSegment> sequence) {
+		
+		// add data stored in parameter node to the end of the sequence so the whole path is recorded.
+		sequence.addToRear(node.getData());
+		
+		// determine the next node to access from the node passing as parameter.
+		
 		
 	}
 }
