@@ -91,8 +91,24 @@ public class Ski<T> {
 		// add data stored in parameter node to the end of the sequence so the whole path is recorded.
 		sequence.addToRear(node.getData());
 		
-		// determine the next node to access from the node passing as parameter.
+		// create child nodes that will be searched.
+		BinaryTreeNode<SkiSegment> left = node.getLeft();
+		BinaryTreeNode<SkiSegment> right = node.getRight();
 		
+		// if the left node is empty, then use right node.
+		if (left == null && right != null) {
+			skiNextSegment(right, sequence);
+		}
 		
+		// if the right node is empty, then use left node.
+		if (right == null && left != null) {
+			skiNextSegment(left, sequence);
+		}
+		
+		// if they both are not empty, evaluate the nodes.
+		else {
+			
+			
+		}
 	}
 }
