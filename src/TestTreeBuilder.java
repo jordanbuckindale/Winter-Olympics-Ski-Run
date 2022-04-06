@@ -11,7 +11,7 @@ public class TestTreeBuilder {
 		TreeBuilder<String> tb = new TreeBuilder<String>();
 
 		// --------------- Test 1 ---------------
-   
+    
 		boolean test1Success = false;
 
 		data = new String[] {"A","B","C","D","E","F","G"};
