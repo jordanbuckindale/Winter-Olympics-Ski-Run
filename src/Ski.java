@@ -251,7 +251,7 @@ public class Ski<T> {
 		// if both are null, path is finished.
 		else {
 			
-		
+		 
 		}
 	}
 }
