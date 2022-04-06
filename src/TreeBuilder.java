@@ -24,7 +24,6 @@ public class TreeBuilder<T> {
 			dataQueue.enqueue(data[i]);
 		}
 		
-		
 		// create LinkedBinaryTree object.
 		LinkedBinaryTree<T> tree;
 		
