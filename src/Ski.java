@@ -68,7 +68,7 @@ public class Ski<T> {
 		tree.buildTree(segments);
 		
 		// store root in instance variable root.
-		this.root.getData();
+		root = this.getRoot();
 	}
 	
 	/**
@@ -106,9 +106,152 @@ public class Ski<T> {
 		}
 		
 		// if they both are not empty, evaluate the nodes.
+		if (right != null && left != null){
+			
+			// create boolean variables for both nodes that represent if they have jumps.
+			boolean rJumpStatus = false;
+			boolean lJumpStatus = false;
+			
+			// sets boolean values to true if ski segment contains jump.
+			rJumpStatus = right.getData().getID().contains("jump");
+			lJumpStatus = right.getData().getID().contains("jump");
+			
+			// checks if right has a jump, and left does not have a jump.
+			if (rJumpStatus == true && lJumpStatus == false) {
+				skiNextSegment(right, sequence);
+			}
+			
+			// checks if left has a jump, and right does not have a jump.
+			if (rJumpStatus == false && lJumpStatus == true) {
+				skiNextSegment(left, sequence);
+			}
+			
+			// if both contain jumps, find and choose the one with the greater height or go right if equal.
+			if (rJumpStatus == true && lJumpStatus == true) {
+				
+				// create string variables for each node.
+				String rightID;
+				String leftID;
+				
+				// create int variables for each node height.
+				int rHeight;
+				int lHeight;
+				
+				// get the strings that contain the height of jump.
+				rightID = right.getData().getID();
+				leftID = left.getData().getID();
+				
+				// split string at dash line.
+				String[] rightStringParts = rightID.split("-", 2);
+				String[] leftStringParts = leftID.split("-", 2);
+				
+				// get the height section of string only.
+				rightID = rightStringParts[1];
+				leftID = leftStringParts[1];
+				
+				// get height of nodes from string.
+				rHeight = Integer.parseInt(rightID);
+				lHeight = Integer.parseInt(leftID);
+				
+				// check if right node height is the same size or larger than the left node. 
+				if (rHeight >= lHeight) {
+					
+					// call function again on right node.
+					skiNextSegment(right, sequence);
+				}
+				
+				// check if left node height is larger than the right node.
+				if (rHeight < lHeight) {
+					
+					// call function again on left node.
+					skiNextSegment(left, sequence);
+				}
+			}
+			
+			// create boolean variables for both nodes that represent if they have slaloms.
+			boolean rSlalomStatus = false;
+			boolean lSlalomStatus = false;
+			
+			// sets boolean value to true if ski segment contains slalom.
+			rSlalomStatus = right.getData().getID().contains("slalom");
+			lSlalomStatus = right.getData().getID().contains("slalom");
+			
+
+			if (rSlalomStatus == true || lSlalomStatus == true) {
+				
+				// create string variables for each node.
+				String rightID;
+				String leftID;
+				
+				// create string variables for each node direction.
+				String rDirection;
+				String lDirection;
+				
+				// get the strings that contain the direction of the ski segment.
+				rightID = right.getData().getID();
+				leftID = left.getData().getID();
+				
+				// split string at dash line.
+				String[] rightStringParts = rightID.split("-", 2);
+				String[] leftStringParts = leftID.split("-", 2);
+				
+				// get the direction section of string only.
+				rDirection = rightStringParts[1];
+				lDirection = leftStringParts[1];
+			
+				// check if right segment is slalom and if it is leeward.
+				if (rSlalomStatus == true && lSlalomStatus == false) {
+					
+					// check if path is leeward.
+					if( rDirection == "L")
+						skiNextSegment(right, sequence);
+					
+					else {
+						skiNextSegment(left, sequence);
+					}
+				}
+						
+				// check if left segment is slalom and if it is leeward.
+				if (rSlalomStatus == false && lSlalomStatus == true) {
+					
+					// check if path is leeward.
+					if( lDirection == "L")
+						skiNextSegment(left, sequence);
+					else {
+						skiNextSegment(right, sequence);
+					}
+				}
+				
+				// check if right and left segment are both slaloms.
+				if (rSlalomStatus == true && lSlalomStatus == true) {
+					
+					// check if right node is leeward. 
+					if (rDirection == "L" && lDirection == "W") {
+			
+						// call function again on right node.
+						skiNextSegment(right, sequence);
+					}
+					
+					// check if left node is leeward.
+					if (rDirection == "W" && lDirection == "L") {
+						
+						// call function again on left node.
+						skiNextSegment(left, sequence);
+					}
+				}
+			}
+			
+			else {
+				// if not jump or not slalom, chose right 
+				skiNextSegment(right, sequence);
+			}
+			
+		}
+		
+		// if both are null, path is finished.
 		else {
 			
-			
+		
 		}
 	}
 }
