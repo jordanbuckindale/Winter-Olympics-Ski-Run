@@ -20,9 +20,10 @@ public class TreeBuilder<T> {
 		LinkedQueue<BinaryTreeNode<T>> parentQueue = new LinkedQueue<>();
 		
 		// put elements of T array into dataQueue.
-		for (int i = 0; i <= data.length; i++) {
+		for (int i = 0; i < data.length; i++) {
 			dataQueue.enqueue(data[i]);
 		}
+		
 		
 		// create LinkedBinaryTree object.
 		LinkedBinaryTree<T> tree;
@@ -41,23 +42,24 @@ public class TreeBuilder<T> {
 			
 			// decare parent node.
 			BinaryTreeNode<T> parent = parentQueue.dequeue();
-			
+				
 			// check to see if left node is null.
-			if (a != null) {
+			if (a.getData() != null) {
+				
 				// set left node as a value.
 				parent.setLeft(a);
 				// add parent node back to queue.
-				parentQueue.enqueue(parent);
+				parentQueue.enqueue(a);
 			}
 			
 			// check to see if right node is null.
-			if (b != null) {
+			if (b.getData() != null) {
+				
 				// set right node as b value.
 				parent.setRight(b);
 				// add parent node back to queue.
-				parentQueue.enqueue(parent);
-			}
-			
+				parentQueue.enqueue(b);
+			}			
 		}
 		 
 		// return built tree.
