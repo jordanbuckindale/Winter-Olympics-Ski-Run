@@ -107,7 +107,7 @@ public class TestSki {
 		} catch (ArrayIndexOutOfBoundsException e) {
 			return false;
 		}
-		return true; 
+		return true;
 	}
 	
 }
