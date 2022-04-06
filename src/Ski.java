@@ -28,33 +28,50 @@ public class Ski<T> {
 		// begin iterating through the array to copy data.
 		for (int i = 0; i < data.length; i++) {
 			
-			// check to see if data[i] contains the jump.
-			if (data[i].contains("jump")) {
+			// boolean variable to check if data is null or not.
+			boolean dataStatus = false;
+			
+			// checks if data is null.
+			if (data[i] != null) {
 				
-				// create jump object. 
-				JumpSegment jumpObj = new JumpSegment(String.valueOf(i), data[i]);
-				
-				// assign object to position in array.
-				segments[i] = jumpObj;
+				// set to true if the data is not null.
+				dataStatus = true;
 			}
 			
-			// check to see if data[i] contains slalom.
-			if (data[i].contains("slalom")) {
+			while (dataStatus == true) {
+				// check to see if data[i] contains the jump.
+				if (data[i].contains("jump")) {
+					
+					// create jump object. 
+					JumpSegment jumpObj = new JumpSegment(String.valueOf(i), data[i]);
+					
+					// assign object to position in array.
+					segments[i] = jumpObj;
+				}
 				
-				// create slalom object. 
-				SlalomSegment SlalomObj = new SlalomSegment(String.valueOf(i), data[i]);
+				// check to see if data[i] contains slalom.
+				if (data[i].contains("slalom")) {
+					
+					// create slalom object. 
+					SlalomSegment SlalomObj = new SlalomSegment(String.valueOf(i), data[i]);
+					
+					// assign object to position in array.
+					segments[i] = SlalomObj;
+				}
 				
-				// assign object to position in array.
-				segments[i] = SlalomObj;
-			}
+				else {
+					
+					// create plain ski object. 
+					SkiSegment skiObj = new SkiSegment(String.valueOf(i), data[i]);
+					
+					// assign object to position in array.
+					segments[i] = skiObj;
+				}
 			
-			else {
+			if (dataStatus = false) {
+				segments[i] = null;
+			}
 				
-				// create plain ski object. 
-				SkiSegment skiObj = new SkiSegment(String.valueOf(i), data[i]);
-				
-				// assign object to position in array.
-				segments[i] = skiObj;
 			}
 		}
 		
@@ -68,7 +85,7 @@ public class Ski<T> {
 		tree.buildTree(segments);
 		
 		// store root in instance variable root.
-		root = this.getRoot();
+		this.root = tree.buildTree(segments).getRoot();
 	}
 	
 	/**
@@ -95,18 +112,32 @@ public class Ski<T> {
 		BinaryTreeNode<SkiSegment> left = node.getLeft();
 		BinaryTreeNode<SkiSegment> right = node.getRight();
 		
+		// create boolean variables for whether nodes are null.
+		boolean lNodeStatus = false;
+		boolean rNodeStatus = false;
+		
+		// set status to true if right node is not null.
+		if (right != null) {
+			rNodeStatus = true;
+		}
+		
+		// set status to true if left node is not null.
+		if (left != null) {
+			lNodeStatus = true;
+		}
+		
 		// if the left node is empty, then use right node.
-		if (left == null && right != null) {
+		if (lNodeStatus == false && rNodeStatus == true) {
 			skiNextSegment(right, sequence);
 		}
 		
 		// if the right node is empty, then use left node.
-		if (right == null && left != null) {
+		if (rNodeStatus == false && lNodeStatus == true) {
 			skiNextSegment(left, sequence);
 		}
 		
 		// if they both are not empty, evaluate the nodes.
-		if (right != null && left != null){
+		if (rNodeStatus == true && lNodeStatus == true){
 			
 			// create boolean variables for both nodes that represent if they have jumps.
 			boolean rJumpStatus = false;
@@ -137,7 +168,7 @@ public class Ski<T> {
 				int rHeight;
 				int lHeight;
 				
-				// get the strings that contain the height of jump.
+				// get the strings of each node that contain the height of jump.
 				rightID = right.getData().getID();
 				leftID = left.getData().getID();
 				
@@ -153,14 +184,14 @@ public class Ski<T> {
 				rHeight = Integer.parseInt(rightID);
 				lHeight = Integer.parseInt(leftID);
 				
-				// check if right node height is the same size or larger than the left node. 
+				// check if right node height is equal to or greater than the left node. 
 				if (rHeight >= lHeight) {
 					
 					// call function again on right node.
 					skiNextSegment(right, sequence);
 				}
 				
-				// check if left node height is larger than the right node.
+				// check if left node height is greater than the right node.
 				if (rHeight < lHeight) {
 					
 					// call function again on left node.
@@ -242,16 +273,11 @@ public class Ski<T> {
 			}
 			
 			else {
-				// if not jump or not slalom, chose right 
+				// if not jump or not slalom, chose right path.
 				skiNextSegment(right, sequence);
 			}
 			
 		}
-		
-		// if both are null, path is finished.
-		else {
-			
-		 
-		}
+	
 	}
 }
