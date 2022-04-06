@@ -14,7 +14,7 @@ public class TreeBuilder<T> {
 	 * @return completed tree.
 	 */
 	public LinkedBinaryTree<T> buildTree(T[] data) {
-		
+		 
 		// initialize queues.
 		LinkedQueue<T> dataQueue = new LinkedQueue<>();
 		LinkedQueue<BinaryTreeNode<T>> parentQueue = new LinkedQueue<>();

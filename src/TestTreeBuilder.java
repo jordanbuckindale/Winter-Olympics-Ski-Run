@@ -17,7 +17,7 @@ public class TestTreeBuilder {
 		data = new String[] {"A","B","C","D","E","F","G"};
 
 		tree = tb.buildTree(data);
-
+		System.out.println("----------------\n" +tree.toStaring());
 		str = "";
 		iter = tree.iteratorInOrder();
 		while (iter.hasNext()) { str += iter.next(); }
@@ -40,7 +40,7 @@ public class TestTreeBuilder {
 		data = new String[] {"A","B","C","D","E","F","G","H","I"};
 
 		tree = tb.buildTree(data);
-
+		System.out.println("----------------\n" +tree.toStaring());
 		str = "";
 		iter = tree.iteratorInOrder();
 		while (iter.hasNext()) { str += iter.next(); }
@@ -61,7 +61,7 @@ public class TestTreeBuilder {
 
 		data = new String[] {"A","B",null,"C",null,"D","E",null,null,"F","G"};
 		tree = tb.buildTree(data);
-
+		System.out.println("----------------\n" +tree.toStaring());
 		str = "";
 		iter = tree.iteratorInOrder();
 		while (iter.hasNext()) { str += iter.next(); }
@@ -83,7 +83,7 @@ public class TestTreeBuilder {
 
 		data = new String[] {"A",null,"B","C",null};
 		tree = tb.buildTree(data);
-
+		System.out.println("----------------\n" +tree.toStaring());
 		try {
 			root = tree.getRoot();
 			if (root.getData().equals("A") && root.getLeft() == null && root.getRight().getData().equals("B")
@@ -109,7 +109,7 @@ public class TestTreeBuilder {
 		TreeBuilder<Integer> builder = new TreeBuilder<Integer>();
 		LinkedBinaryTree<Integer> iTree = builder.buildTree(iData);
 		BinaryTreeNode<Integer> iRoot;
-		
+		System.out.println("----------------\n" +iTree.toStaring());
 		try {
 			iRoot = iTree.getRoot();
 			if (iRoot.getData() == 5 && iRoot.getLeft().getData() == 9 && iRoot.getRight().getData() == 18
@@ -126,7 +126,5 @@ public class TestTreeBuilder {
 		} else {
 			System.out.println("Test 5 failed");
 		}
-
 	}
-
 }
