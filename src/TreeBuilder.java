@@ -7,7 +7,7 @@
 
 public class TreeBuilder<T> {
 
-	
+	 
 	/** 
 	 * Takes in a T array input parameter which contains the set of values that will be inserted in the new trees nodes.
 	 * @param data contains the set of values for the tree.
